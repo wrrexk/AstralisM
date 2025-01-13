@@ -785,11 +785,11 @@ SkinsSection:AddDropdown({
 ------------------------------------ LUA -----------------------------------
 
 local LuaSection = LuaTab:CreateSection({
-    Name = "Lua Execution"
+    Name = "Lua Execution",
     Side = "Left"
 })
 local LuaSection2 = LuaTab:CreateSection({
-    Name = "Built-in"
+    Name = "Built-in",
     Side = "Right"
 })
 
