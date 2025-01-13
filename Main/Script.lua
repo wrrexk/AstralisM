@@ -30,6 +30,7 @@ local camera = workspace.CurrentCamera
 local mouse = localPlayer:GetMouse()
 local debris = game:GetService("Debris")
 local client = getsenv(localPlayer.PlayerGui.Client)
+local Camera = game.Workspace.CurrentCamera
 
 
 local lines = {} 
@@ -243,7 +244,9 @@ local flags = {
     inf_cash = false ,
     hitsound_enabled = false,
     hitsound_value = "Bameware",
-    hitsound_volume = 2 
+    hitsound_volume = 2,
+    fov_changer = false,  
+    fov_distance = 75  
 
 }
 ------------------------------------ FIXES FOR SCRIPTS -----------------------------------
@@ -533,6 +536,12 @@ local GameSection = MiscTab:CreateSection({
     Side = "Right"
 })
 
+local SelfSection = MiscTab:CreateSection({
+    Name = "Self",
+    Side = "Right"
+})
+
+
 local DrawingSection = MiscTab:CreateSection({
     Name = "Drawing",
     Side = "Right"
@@ -547,6 +556,37 @@ local ConfiggSection = MiscTab:CreateSection({
     Name = "Config",
     Side = "Left"
 })
+
+SelfSection:AddToggle({
+    Name = "Fov Changer",
+    Flag = "fov_changer",
+    Value = flags.fov_changer, -- Initial value of the toggle
+    Callback = function(newValue)
+        flags.fov_changer = newValue -- Update the flag when toggle is changed
+    end
+})
+
+-- Add the slider for FOV distance
+SelfSection:AddSlider({
+    Name = "Fov Distance",
+    Flag = "fov_distance",
+    Value = flags.fov_distance or 75, -- Default FOV value
+    Min = 75,
+    Max = 120,
+    Callback = function(newValue)
+        flags.fov_distance = newValue -- Update the flag when slider is adjusted
+        if flags.fov_changer then
+            Camera.FieldOfView = newValue -- Update the Camera FOV
+        end
+    end
+})
+
+-- Listen for changes in FOV only when the toggle is active
+Camera:GetPropertyChangedSignal("FieldOfView"):Connect(function()
+    if flags.fov_changer then
+        Camera.FieldOfView = flags.fov_distance
+    end
+end)
 
 
 GameSection:AddButton({
