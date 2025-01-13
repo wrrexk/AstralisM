@@ -856,14 +856,19 @@ LuaSection:AddButton({
     end
 })
 
-LuaSection2:AddButton('Unlock All Skins', function() 
-    loadstring(game:HttpGet("https://pastebin.com/raw/Qu9inv8N", true))() 
-end)
+LuaSection2:AddButton(
+    Name = 'Unlock All Skins',
+    Callback = function() 
+        loadstring(game:HttpGet("https://pastebin.com/raw/Qu9inv8N", true))()
+    end
+)
 
-LuaSection2:AddButton('Funswapper', function() 
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Funswapper/Funswapper-Script/refs/heads/main/Variants/V1.lua", true))()
-end)
-
+LuaSection2:AddButton(
+    Name = 'Funswapper',
+    Callback = function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Funswapper/Funswapper-Script/refs/heads/main/Variants/V1.lua", true))()
+    end
+)
 ------------------------------------ NOTIFY -----------------------------------
 
 library.Notify({
